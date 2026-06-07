@@ -1,0 +1,55 @@
+<style>
+  /* Força o botão da agenda a ficar visível */
+  #fabAgenda {
+    position: fixed !important;
+    bottom: 5rem !important;
+    right: 1rem !important;
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    background-color: #7c3aed !important;
+    border-radius: 9999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-size: 1.5rem !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    z-index: 9999 !important;
+    cursor: pointer !important;
+  }
+  #fabAgenda:hover {
+    background-color: #6d28d9 !important;
+  }
+  /* Garante que o modal fique centralizado */
+  #modalCriarEvento {
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important;
+  }
+  .modal-content {
+    background-color: #0f172a !important;
+    border-radius: 1rem !important;
+    width: 90% !important;
+    max-width: 28rem !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    border: 1px solid #7c3aed !important;
+    padding: 1.25rem !important;
+  }
+</style>
+
+<div class="px-5 pt-5">
+  <h2 class="text-white text-2xl font-bold">Minha Agenda</h2>
+</div>
+<div id="conteudo-dinamico" class="px-5 mt-4 space-y-3 pb-32">
+  <!-- Lista dinâmica -->
+</div>
+
+<!-- Botão flutuante "+" -->
+<button id="fabAgenda">
+  <i class="fas fa-plus"></i>
+</button>

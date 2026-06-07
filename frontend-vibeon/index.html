@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>VibeOn</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="h-screen overflow-hidden bg-[#0F172A] m-0 p-0">
+    <div
+      class="w-full bg-[#0F172A] rounded-none md:rounded-3xl shadow-2xl border border-[#7C3AED]/30 relative flex flex-col h-screen"
+    >
+      <!-- Área de conteúdo rolável -->
+      <div id="app" class="flex-1 overflow-y-auto pb-16"></div>
+
+      <!-- Barra de navegação inferior -->
+      <div
+        id="bottomNav"
+        class="hidden bg-[#0F172A] border-t border-[#334155] py-2 px-4 flex justify-between items-center mt-auto"
+      >
+        <button
+          class="nav-btn text-[#94A3B8] hover:text-[#7C3AED] flex flex-col items-center"
+          data-screen="home"
+        >
+          <i class="fas fa-home text-xl"></i
+          ><span class="text-[10px]">Home</span>
+        </button>
+        <button
+          class="nav-btn text-[#94A3B8] hover:text-[#7C3AED] flex flex-col items-center"
+          data-screen="mapa"
+        >
+          <i class="fas fa-map text-xl"></i
+          ><span class="text-[10px]">Mapa</span>
+        </button>
+        <button
+          class="nav-btn text-[#94A3B8] hover:text-[#7C3AED] flex flex-col items-center"
+          data-screen="agenda"
+        >
+          <i class="fas fa-calendar-alt text-xl"></i
+          ><span class="text-[10px]">Agenda</span>
+        </button>
+        <button
+          class="nav-btn text-[#94A3B8] hover:text-[#7C3AED] flex flex-col items-center"
+          data-screen="favoritos"
+        >
+          <i class="fas fa-heart text-xl"></i
+          ><span class="text-[10px]">Favoritos</span>
+        </button>
+        <button
+          class="nav-btn text-[#94A3B8] hover:text-[#7C3AED] flex flex-col items-center"
+          data-screen="perfil"
+        >
+          <i class="fas fa-user text-xl"></i
+          ><span class="text-[10px]">Perfil</span>
+        </button>
+      </div>
+
+      <!-- Container para elementos flutuantes (botão + modal) – absolute dentro do container relativo -->
+      <div
+        id="floating-elements"
+        class="absolute inset-0 pointer-events-none"
+        style="z-index: 20"
+      >
+        <!-- Botão e modal serão inseridos aqui (pointer-events auto neles) -->
+      </div>
+    </div>
+
+    <div
+      id="toast"
+      class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-[#22C55E] text-[#0F172A] px-4 py-2 rounded-full text-sm font-bold shadow-lg toast pointer-events-none z-50"
+    ></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/eventos.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/agenda.js"></script>
+    <script src="js/favoritos.js"></script>
+    <script src="js/perfil.js"></script>
+    <script src="js/mapa.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

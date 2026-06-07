@@ -1,0 +1,47 @@
+* {
+  font-family: "Inter", sans-serif;
+}
+.toast {
+  transition: all 0.3s;
+  transform: translateY(20px);
+  opacity: 0;
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.star-btn.active {
+  color: #f59e0b;
+}
+.premium-glow {
+  box-shadow:
+    0 0 0 2px #22c55e,
+    0 0 0 5px rgba(34, 197, 94, 0.3);
+}
+.screen {
+  display: none;
+}
+.screen.active {
+  display: block;
+}
+
+#fabAgenda {
+  z-index: 100 !important;
+}
+/* Garante que o floating container não atrapalhe eventos de toque */
+#floating-elements {
+  pointer-events: none;
+}
+#floating-elements > * {
+  pointer-events: auto;
+}
+@media (max-width: 480px) {
+  #fabAgenda {
+    bottom: 100px !important;
+  }
+}
+body {
+  background-color: #0f172a !important; /* mesma cor do app */
+  margin: 0;
+  padding: 0;
+}
