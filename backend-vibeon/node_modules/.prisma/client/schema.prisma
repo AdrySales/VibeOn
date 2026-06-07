@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Usuario {
+  id               Int              @id @default(autoincrement())
+  nome             String
+  email            String           @unique
+  senha            String
+  telefone         String?
+  tipo             String           @default("user")
+  foto             String?
+  createdAt        DateTime         @default(now())
+  favoritosEventos FavoritoEvento[]
+
+  // Relações
+  estabelecimento Estabelecimento? // Um usuário pode ser um estabelecimento (1:1)
+  favoritos       Favorito[]
+  agenda          Agenda[]
+  avaliacoes      Avaliacao[]
+}
+
+model FavoritoEvento {
+  id        Int      @id @default(autoincrement())
+  usuarioId Int
+  eventoId  Int
+  createdAt DateTime @default(now())
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+  evento    Evento   @relation(fields: [eventoId], references: [id])
+
+  @@unique([usuarioId, eventoId])
+}
+
+model Estabelecimento {
+  id              Int     @id @default(autoincrement())
+  usuarioId       Int     @unique
+  nomeFantasia    String
+  endereco        String
+  categoria       String
+  descricao       String?
+  premiumAtivo    Boolean @default(false)
+  premiumSimulado Boolean @default(false)
+  foto            String?
+
+  // Relações
+  usuario    Usuario     @relation(fields: [usuarioId], references: [id])
+  eventos    Evento[]
+  favoritos  Favorito[]
+  avaliacoes Avaliacao[]
+}
+
+model Evento {
+  id                Int              @id @default(autoincrement())
+  estabelecimentoId Int
+  nome              String
+  descricao         String?
+  dataHora          DateTime
+  preco             String?
+  foto              String?
+  createdAt         DateTime         @default(now())
+  favoritos         FavoritoEvento[]
+
+  // Relações
+  estabelecimento Estabelecimento @relation(fields: [estabelecimentoId], references: [id])
+  agenda          Agenda[]
+}
+
+model Favorito {
+  id                Int      @id @default(autoincrement())
+  usuarioId         Int
+  estabelecimentoId Int
+  createdAt         DateTime @default(now())
+
+  // Relações
+  usuario         Usuario         @relation(fields: [usuarioId], references: [id])
+  estabelecimento Estabelecimento @relation(fields: [estabelecimentoId], references: [id])
+
+  @@unique([usuarioId, estabelecimentoId])
+}
+
+model Agenda {
+  id        Int      @id @default(autoincrement())
+  usuarioId Int
+  eventoId  Int
+  createdAt DateTime @default(now())
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+  evento    Evento   @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, eventoId])
+}
+
+model Avaliacao {
+  id                Int      @id @default(autoincrement())
+  usuarioId         Int
+  estabelecimentoId Int
+  nota              Int
+  comentario        String?
+  createdAt         DateTime @default(now())
+
+  // Relações
+  usuario         Usuario         @relation(fields: [usuarioId], references: [id])
+  estabelecimento Estabelecimento @relation(fields: [estabelecimentoId], references: [id])
+}
