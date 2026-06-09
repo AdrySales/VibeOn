@@ -77,6 +77,32 @@
       </div>
     </div>
 
+    <!-- Modal de detalhes do evento -->
+    <div
+      id="modalDetalhesEvento"
+      class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4"
+      style="display: none"
+    >
+      <div
+        class="bg-[#0F172A] rounded-2xl w-full max-w-md max-h-[85vh] overflow-y-auto border border-[#7C3AED] p-5 shadow-xl"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="modalEventoTitulo" class="text-white text-xl font-bold">
+            Detalhes do Evento
+          </h3>
+          <button
+            id="fecharModalDetalhes"
+            class="text-[#94A3B8] hover:text-white text-2xl"
+          >
+            &times;
+          </button>
+        </div>
+        <div id="modalEventoConteudo" class="space-y-3">
+          <!-- Conteúdo será preenchido dinamicamente -->
+        </div>
+      </div>
+    </div>
+
     <div
       id="toast"
       class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-[#22C55E] text-[#0F172A] px-4 py-2 rounded-full text-sm font-bold shadow-lg toast pointer-events-none z-50"

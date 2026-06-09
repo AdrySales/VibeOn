@@ -12,8 +12,89 @@
       U
     </div>
   </div>
+
+  <!-- Seletor de cidade -->
+  <div class="mt-4">
+    <label class="block text-[#CBD5E1] text-sm mb-1">Cidade</label>
+    <select
+      id="cidadeSelect"
+      class="w-full bg-[#1E293B] border border-[#334155] text-white p-2 rounded-lg"
+    >
+      <option value="todas">Todas as cidades</option>
+    </select>
+  </div>
+
   <div class="mt-6">
-    <h2 class="text-white text-2xl font-bold">Eventos próximos</h2>
+    <p class="uppercase text-[#22C55E] text-xs font-bold tracking-wider">
+      para hoje à noite
+    </p>
+    <h2 class="text-white text-2xl font-bold">
+      Descubra um bom motivo pra sair.
+    </h2>
+  </div>
+
+  <!-- Filtros rápidos -->
+  <div class="flex gap-2 mt-4 overflow-x-auto pb-2">
+    <button
+      class="filter-btn active bg-[#7C3AED] text-white px-4 py-1.5 rounded-full text-sm font-medium"
+      data-filter="todos"
+    >
+      Todos
+    </button>
+    <button
+      class="filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+      data-filter="hoje"
+    >
+      Hoje
+    </button>
+    <button
+      class="filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+      data-filter="amanha"
+    >
+      Amanhã
+    </button>
+    <button
+      class="filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+      data-filter="fim_semana"
+    >
+      Fim de semana
+    </button>
   </div>
 </div>
-<div id="conteudo-dinamico" class="px-5 mt-4 space-y-3">Carregando...</div>
+
+<!-- DESTAQUES DA SEMANA (horizontal) -->
+<section class="mt-6 px-5">
+  <div class="flex justify-between items-center mb-3">
+    <div>
+      <p class="uppercase text-[#22C55E] text-xs font-bold tracking-wider">
+        curadoria especial
+      </p>
+      <h3 class="text-white font-bold text-lg">Destaques da Semana</h3>
+    </div>
+    <button id="verTodosDestaques" class="text-[#7C3AED] text-xs">
+      Ver todos
+    </button>
+  </div>
+  <div id="destaquesContainer" class="flex gap-4 overflow-x-auto pb-2">
+    <!-- cards horizontais serão injetados -->
+  </div>
+</section>
+
+<!-- PERTO DE VOCÊ (lista vertical com imagem pequena) -->
+<section class="mt-6 px-5">
+  <div class="flex justify-between items-center mb-3">
+    <div>
+      <p class="uppercase text-[#22C55E] text-xs font-bold tracking-wider">
+        ao seu redor
+      </p>
+      <h3 class="text-white font-bold text-lg">Perto de você</h3>
+    </div>
+    <button id="verTodosPerto" class="text-[#7C3AED] text-xs">Explorar</button>
+  </div>
+  <div id="pertoContainer" class="space-y-3">
+    <!-- lista vertical será injetada -->
+  </div>
+</section>
+
+<!-- LISTAGEM PRINCIPAL (mesmo estilo do "Perto de você") -->
+<div id="conteudo-dinamico" class="px-5 mt-6 space-y-3"></div>

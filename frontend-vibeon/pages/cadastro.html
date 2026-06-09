@@ -60,6 +60,28 @@
 
   <!-- Campos específicos para empresa (inicialmente ocultos) -->
   <div id="empresaFields" class="hidden space-y-3 mt-3">
+    <div class="space-y-3">
+      <!-- ... outros campos ... -->
+      <div>
+        <label class="block text-[#CBD5E1] text-sm mb-1">Estado</label>
+        <select
+          id="cadEstado"
+          class="w-full bg-[#1E293B] border border-[#334155] text-white p-3 rounded-xl"
+        >
+          <option value="">Selecione um estado</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[#CBD5E1] text-sm mb-1">Cidade</label>
+        <select
+          id="cadCidade"
+          class="w-full bg-[#1E293B] border border-[#334155] text-white p-3 rounded-xl"
+          disabled
+        >
+          <option value="">Primeiro selecione um estado</option>
+        </select>
+      </div>
+    </div>
     <div>
       <label class="block text-[#CBD5E1] text-sm mb-1"
         >Endereço do estabelecimento</label

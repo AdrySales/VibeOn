@@ -42,6 +42,7 @@ model Estabelecimento {
   usuarioId       Int     @unique
   nomeFantasia    String
   endereco        String
+  cidade          String?
   categoria       String
   descricao       String?
   premiumAtivo    Boolean @default(false)

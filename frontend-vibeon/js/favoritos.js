@@ -50,7 +50,7 @@ async function carregarFavoritos() {
       container.innerHTML = favoritos
         .map(
           (fav) => `
-        <div class="bg-[#1E293B] rounded-xl p-3 flex justify-between items-center">
+        <div class="bg-[#1E293B] rounded-xl p-3 flex justify-between items-center cursor-pointer" data-id="${fav.evento.id}">
           <div>
             <h3 class="text-white font-bold">${fav.evento.nome}</h3>
             <p class="text-[#94A3B8] text-sm">${new Date(fav.evento.dataHora).toLocaleString()}</p>
@@ -71,6 +71,20 @@ async function carregarFavoritos() {
           carregarFavoritos();
         });
       });
+
+      // ADICIONAR EVENTO DE CLIQUE NOS CARDS PARA ABRIR MODAL
+      document
+        .querySelectorAll("#conteudo-dinamico .cursor-pointer[data-id]")
+        .forEach((card) => {
+          card.addEventListener("click", (e) => {
+            // Não abrir modal se clicar no botão de remover
+            if (e.target.closest(".removeFavEventoBtn")) return;
+            const eventoId = card.dataset.id;
+            if (eventoId && typeof abrirModalDetalhesEvento === "function") {
+              abrirModalDetalhesEvento(eventoId);
+            }
+          });
+        });
     }
   } catch (err) {
     console.error("Erro ao carregar favoritos:", err);

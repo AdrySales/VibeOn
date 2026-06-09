@@ -49,6 +49,7 @@ async function carregarPagina(pagina) {
 
     // Configura eventos da página de cadastro
     if (pagina === "cadastro") {
+      // Inicializa os botões de tipo (Usuário/Empresa) e os campos
       const btnUser = document.getElementById("btnTipoUser");
       const btnEmpresa = document.getElementById("btnTipoEmpresa");
       const empresaFields = document.getElementById("empresaFields");
@@ -75,9 +76,16 @@ async function carregarPagina(pagina) {
           btnUser.classList.remove("bg-[#7C3AED]", "text-white");
           btnUser.classList.add("bg-[#1E293B]", "text-[#94A3B8]");
           empresaFields.classList.remove("hidden");
+          // Carrega estados e configura listener do select quando a empresa for selecionada
+          carregarEstados();
+          const estadoSelect = document.getElementById("cadEstado");
+          if (estadoSelect) {
+            estadoSelect.onchange = (e) => carregarCidades(e.target.value);
+          }
         };
       }
 
+      // Botão de cadastro
       const btnCadastrar = document.getElementById("btnCadastrar");
       const voltarLogin = document.getElementById("voltarLogin");
       if (btnCadastrar) {
@@ -92,16 +100,23 @@ async function carregarPagina(pagina) {
           }
           if (tipoCadastro === "estabelecimento") {
             const endereco = document.getElementById("cadEndereco")?.value;
+            const cidade = document.getElementById("cadCidade")?.value;
+            console.log("📌 Cidade capturada no frontend:", cidade);
             if (!endereco) {
               showToast("Informe o endereço do estabelecimento");
+              return;
+            }
+            if (!cidade) {
+              showToast("Selecione uma cidade");
               return;
             }
             cadastrar(nome, email, senha, telefone, "estabelecimento", {
               nomeFantasia: nome,
               endereco,
+              cidade,
               categoria:
                 document.getElementById("cadCategoria")?.value || "bar",
-              descricao: document.getElementById("cadDescricao")?.value,
+              descricao: document.getElementById("cadDescricao")?.value || "",
             });
           } else {
             cadastrar(nome, email, senha, telefone, "user", null);

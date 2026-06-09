@@ -42,13 +42,13 @@ app.post("/api/auth/cadastro", async (req, res) => {
       data: { nome, email, senha: senhaHash, telefone, tipo: tipo || "user" },
     });
 
-    // Se for estabelecimento e os dados adicionais foram enviados, cria o perfil
     if (tipo === "estabelecimento" && estabelecimento) {
       await prisma.estabelecimento.create({
         data: {
           usuarioId: usuario.id,
           nomeFantasia: estabelecimento.nomeFantasia || nome,
           endereco: estabelecimento.endereco,
+          cidade: estabelecimento.cidade, // ← adicionar
           categoria: estabelecimento.categoria,
           descricao: estabelecimento.descricao || null,
         },

@@ -243,3 +243,178 @@ async function abrirModalEditarEvento(eventoId) {
     showToast(err.message);
   }
 }
+
+// js/eventos.js (adicione no final)
+
+// ========== MODAL DE DETALHES DO EVENTO ==========
+async function abrirModalDetalhesEvento(eventoId) {
+  try {
+    const evento = await apiRequest(`/api/eventos/${eventoId}`);
+    if (!evento) {
+      showToast("Evento não encontrado");
+      return;
+    }
+
+    // Remove modal anterior se existir
+    const modalExistente = document.getElementById("modalDetalhesEvento");
+    if (modalExistente) modalExistente.remove();
+
+    const floatingContainer = document.getElementById("floating-elements");
+    if (!floatingContainer) return;
+
+    const dataHora = new Date(evento.dataHora);
+    const dataFormatada = dataHora.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    const horaFormatada = dataHora.toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const fotoUrl = evento.foto ? `${API_URL}${evento.foto}` : null;
+    const estabelecimentoNome =
+      evento.estabelecimento?.usuario?.nome || "Estabelecimento";
+    const endereco =
+      evento.estabelecimento?.endereco || "Endereço não informado";
+    const categoria = evento.estabelecimento?.categoria || "";
+    const preco = evento.preco ? `R$ ${evento.preco}` : "Gratuito";
+
+    const modalDiv = document.createElement("div");
+    modalDiv.id = "modalDetalhesEvento";
+    modalDiv.className =
+      "absolute inset-0 flex items-center justify-center pointer-events-auto z-50";
+    modalDiv.style.backgroundColor = "rgba(0,0,0,0.85)";
+    modalDiv.style.backdropFilter = "blur(4px)";
+
+    modalDiv.innerHTML = `
+      <div class="bg-[#0F172A] rounded-2xl w-[90%] max-w-[500px] max-h-[85vh] overflow-y-auto border border-[#7C3AED] shadow-2xl">
+        <!-- Imagem de capa -->
+        <div class="relative h-48 rounded-t-2xl overflow-hidden">
+          ${fotoUrl ? `<img src="${fotoUrl}" class="w-full h-full object-cover">` : `<div class="w-full h-full bg-[#1E293B] flex items-center justify-center"><i class="fas fa-image text-6xl text-[#334155]"></i></div>`}
+          <button id="fecharModalDetalhes" class="absolute top-3 right-3 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="p-5 space-y-4">
+          <div>
+            <h2 class="text-white text-2xl font-bold">${evento.nome.replace(/['"]/g, "&quot;")}</h2>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="text-xs bg-[#22C55E] text-[#0F172A] px-2 py-0.5 rounded-full font-bold">${categoria}</span>
+              ${evento.preco ? `<span class="text-xs bg-[#F59E0B] text-[#0F172A] px-2 py-0.5 rounded-full font-bold">${preco}</span>` : ""}
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <i class="fas fa-calendar-alt text-[#7C3AED] mt-1"></i>
+              <div>
+                <p class="text-white font-semibold">Data e Horário</p>
+                <p class="text-[#94A3B8] text-sm">${dataFormatada} • ${horaFormatada}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <i class="fas fa-map-marker-alt text-[#7C3AED] mt-1"></i>
+              <div>
+                <p class="text-white font-semibold">Local</p>
+                <p class="text-[#94A3B8] text-sm">${endereco}</p>
+                <p class="text-xs text-[#22C55E]">${estabelecimentoNome}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <i class="fas fa-align-left text-[#7C3AED] mt-1"></i>
+              <div class="flex-1">
+                <p class="text-white font-semibold">Descrição</p>
+                <div class="text-[#94A3B8] text-sm leading-relaxed max-h-40 overflow-y-auto whitespace-pre-wrap">
+                  ${evento.descricao ? evento.descricao.replace(/['"]/g, "&quot;") : "Nenhuma descrição fornecida."}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button id="detalhesAddAgenda" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-2 rounded-full flex items-center justify-center gap-2 transition" data-id="${evento.id}">
+              <i class="fas fa-calendar-plus"></i> Minha Agenda
+            </button>
+            <button id="detalhesFavoritar" class="bg-[#1E293B] hover:bg-[#334155] text-white py-2 rounded-full flex items-center justify-center gap-2 transition" data-id="${evento.id}">
+              <i class="fas fa-heart"></i> Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    floatingContainer.appendChild(modalDiv);
+
+    // Fechar modal
+    const fecharBtn = document.getElementById("fecharModalDetalhes");
+    if (fecharBtn) {
+      fecharBtn.addEventListener("click", () => modalDiv.remove());
+    }
+    modalDiv.addEventListener("click", (e) => {
+      if (e.target === modalDiv) modalDiv.remove();
+    });
+
+    // Adicionar à agenda
+    const addAgendaBtn = document.getElementById("detalhesAddAgenda");
+    if (addAgendaBtn) {
+      addAgendaBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        try {
+          await apiRequest("/api/agenda", "POST", { eventoId: evento.id });
+          showToast("Evento adicionado à sua agenda!");
+        } catch (err) {
+          showToast(err.message);
+        }
+      });
+    }
+
+    // Favoritar/Desfavoritar
+    const favBtn = document.getElementById("detalhesFavoritar");
+    if (favBtn) {
+      // Verificar se já está favoritado
+      let favoritoAtual = null;
+      if (token) {
+        try {
+          const favoritos = await apiRequest("/api/favoritos-eventos");
+          favoritoAtual = favoritos.find((f) => f.eventoId === evento.id);
+        } catch (e) {}
+      }
+      if (favoritoAtual) {
+        favBtn.classList.add("text-red-500");
+        favBtn.innerHTML = '<i class="fas fa-heart"></i> Favoritado';
+      }
+      favBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        try {
+          if (favoritoAtual) {
+            await apiRequest(
+              `/api/favoritos-eventos/${favoritoAtual.id}`,
+              "DELETE",
+            );
+            showToast("Removido dos favoritos");
+            favBtn.classList.remove("text-red-500");
+            favBtn.innerHTML = '<i class="fas fa-heart"></i> Favoritar';
+            favoritoAtual = null;
+          } else {
+            const novoFav = await apiRequest("/api/favoritos-eventos", "POST", {
+              eventoId: evento.id,
+            });
+            showToast("Adicionado aos favoritos!");
+            favBtn.classList.add("text-red-500");
+            favBtn.innerHTML = '<i class="fas fa-heart"></i> Favoritado';
+            favoritoAtual = novoFav;
+          }
+        } catch (err) {
+          showToast(err.message);
+        }
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    showToast("Erro ao carregar detalhes do evento.");
+  }
+}
