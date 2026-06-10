@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+**/node_modules/
+
+# Arquivos de build
+build/
+**/build/
+dist/
+**/dist/
+
+# Pastas de IDE
+.idea/
+*.iml
+.vscode/
+
+# Configurações locais do Gradle
+**/gradle/gradle-daemon-jvm.properties
+**/gradle/daemon/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.dbc
