@@ -79,6 +79,65 @@ app.post("/api/auth/login", async (req, res) => {
   });
 });
 
+// Atualizar perfil do usuário (não estabelecimento)
+app.put("/api/usuarios/me", auth, async (req, res) => {
+  const { nome, email, telefone } = req.body;
+  try {
+    const usuario = await prisma.usuario.update({
+      where: { id: req.usuarioId },
+      data: { nome, email, telefone },
+    });
+    res.json({
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+      telefone: usuario.telefone,
+    });
+  } catch (err) {
+    res.status(400).json({ erro: err.message });
+  }
+});
+
+// Alterar senha
+app.post("/api/usuarios/me/alterar-senha", auth, async (req, res) => {
+  const { senhaAtual, novaSenha } = req.body;
+  const usuario = await prisma.usuario.findUnique({
+    where: { id: req.usuarioId },
+  });
+  if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+  const senhaValida = await bcrypt.compare(senhaAtual, usuario.senha);
+  if (!senhaValida)
+    return res.status(401).json({ erro: "Senha atual incorreta" });
+  const novaSenhaHash = await bcrypt.hash(novaSenha, 10);
+  await prisma.usuario.update({
+    where: { id: req.usuarioId },
+    data: { senha: novaSenhaHash },
+  });
+  res.json({ mensagem: "Senha alterada com sucesso" });
+});
+
+// Atualizar perfil do estabelecimento
+app.put("/api/estabelecimento", auth, async (req, res) => {
+  const { nomeFantasia, endereco, cidade, categoria, descricao } = req.body;
+  try {
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: req.usuarioId },
+    });
+    if (usuario.tipo !== "estabelecimento") {
+      return res
+        .status(403)
+        .json({ erro: "Apenas estabelecimentos podem acessar" });
+    }
+    const estabelecimento = await prisma.estabelecimento.update({
+      where: { usuarioId: req.usuarioId },
+      data: { nomeFantasia, endereco, cidade, categoria, descricao },
+    });
+    res.json(estabelecimento);
+  } catch (err) {
+    res.status(400).json({ erro: err.message });
+  }
+});
+
 // ----- EVENTOS -----
 app.get("/api/eventos", async (req, res) => {
   const { estabelecimentoId } = req.query;
