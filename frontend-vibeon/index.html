@@ -16,6 +16,13 @@
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="h-screen overflow-hidden bg-[#0F172A] m-0 p-0">
@@ -71,10 +78,8 @@
       <div
         id="floating-elements"
         class="absolute inset-0 pointer-events-none"
-        style="z-index: 20"
-      >
-        <!-- Botão e modal serão inseridos aqui (pointer-events auto neles) -->
-      </div>
+        style="z-index: 999"
+      ></div>
     </div>
 
     <!-- Modal de detalhes do evento -->

@@ -1,5 +1,47 @@
 <div class="px-5 pt-5">
-  <h2 class="text-white text-2xl font-bold">Mapa</h2>
-  <p class="text-[#94A3B8] text-sm">Em breve</p>
+  <div class="flex justify-between items-center">
+    <h2 class="text-white text-2xl font-bold">Mapa de Rolês</h2>
+  </div>
+  <p class="text-[#94A3B8] text-sm mt-1">Eventos próximos a você</p>
 </div>
-<div id="conteudo-dinamico" class="px-5 mt-4"></div>
+
+<!-- Filtros de data -->
+<div class="flex gap-2 px-5 mt-3 overflow-x-auto pb-2">
+  <button
+    class="map-filter-btn active bg-[#7C3AED] text-white px-4 py-1.5 rounded-full text-sm font-medium"
+    data-filter="todos"
+  >
+    Todos
+  </button>
+  <button
+    class="map-filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+    data-filter="hoje"
+  >
+    Hoje
+  </button>
+  <button
+    class="map-filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+    data-filter="amanha"
+  >
+    Amanhã
+  </button>
+  <button
+    class="map-filter-btn bg-transparent border border-[#334155] text-[#94A3B8] px-4 py-1.5 rounded-full text-sm"
+    data-filter="fim_semana"
+  >
+    Fim de semana
+  </button>
+</div>
+
+<!-- Container do mapa -->
+<div
+  id="mapaContainer"
+  class="mx-5 mt-3 h-96 rounded-xl overflow-hidden border border-[#334155] bg-[#1E293B]"
+></div>
+
+<!-- Legenda / contagem -->
+<div class="px-5 mt-3 text-center">
+  <p id="mapaInfo" class="text-[#94A3B8] text-xs">
+    Clique nos marcadores para ver detalhes
+  </p>
+</div>

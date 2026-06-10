@@ -1,5 +1,5 @@
 // Configuração da API
-const API_URL = "http://localhost:3333"; // Altere para seu IP ou URL de deploy
+const API_URL = "https://vibeon-api.onrender.com";
 let token = localStorage.getItem("token");
 let currentUser = null;
 

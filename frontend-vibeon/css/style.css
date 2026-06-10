@@ -45,3 +45,6 @@ body {
   margin: 0;
   padding: 0;
 }
+.toast {
+  z-index: 99999 !important;
+}
