@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>VibeOn - Baixe o App</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e0b36 50%,
+          #2b0f4a 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+
+      .card {
+        max-width: 520px;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 2.5rem;
+        border: 1px solid rgba(124, 58, 237, 0.4);
+        padding: 2rem 1.8rem;
+        box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        transition: transform 0.2s ease;
+      }
+
+      .logo {
+        margin-bottom: 1.5rem;
+      }
+
+      .logo h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f8fafc 0%, #c4b5fd 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.5px;
+      }
+
+      .logo p {
+        color: #94a3b8;
+        font-size: 0.85rem;
+        margin-top: 0.3rem;
+      }
+
+      .title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 0.5rem;
+      }
+
+      .sub {
+        color: #a78bfa;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+        border-left: 3px solid #7c3aed;
+        padding-left: 0.75rem;
+        display: inline-block;
+      }
+
+      .qr-container {
+        background: white;
+        padding: 1rem;
+        border-radius: 1.5rem;
+        display: inline-block;
+        margin-bottom: 1.8rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .qr-container img {
+        width: 200px;
+        height: 200px;
+        display: block;
+      }
+
+      .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: linear-gradient(95deg, #7c3aed 0%, #6d28d9 100%);
+        padding: 0.9rem 2rem;
+        border-radius: 3rem;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.2s;
+        margin-top: 0.5rem;
+        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-download:hover {
+        transform: scale(1.02);
+        background: linear-gradient(95deg, #8b5cf6 0%, #7c3aed 100%);
+        box-shadow: 0 12px 24px rgba(124, 58, 237, 0.4);
+      }
+
+      .btn-download i {
+        font-size: 1.3rem;
+      }
+
+      .info-text {
+        margin-top: 1.8rem;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        border-top: 1px solid #334155;
+        padding-top: 1.5rem;
+      }
+
+      .info-text a {
+        color: #a78bfa;
+        text-decoration: none;
+      }
+
+      .info-text a:hover {
+        text-decoration: underline;
+      }
+
+      .badge {
+        background: rgba(34, 197, 94, 0.15);
+        color: #22c55e;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 1.5rem;
+        }
+        .qr-container img {
+          width: 160px;
+          height: 160px;
+        }
+        .title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="logo">
+        <h1>VibeOn</h1>
+        <p>sinta a vibe da cidade</p>
+      </div>
+      <div class="badge">
+        <i class="fas fa-qrcode"></i> Disponível para Android
+      </div>
+      <div class="title">Baixe o App</div>
+      <div class="sub">escaneie o QR Code ou clique no botão</div>
+
+      <!-- QR Code gerado dinamicamente a partir do link do APK -->
+      <div class="qr-container">
+        <img
+          id="qrCodeImg"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F17OLJMj_Xawoti9DJY7ljvshyHy7cNuxf%2Fview%3Fusp%3Ddrive_link"
+          alt="QR Code VibeOn"
+        />
+      </div>
+
+      <a
+        href="https://drive.google.com/file/d/17OLJMj_Xawoti9DJY7ljvshyHy7cNuxf/view?usp=drive_link"
+        class="btn-download"
+        target="_blank"
+      >
+        <i class="fas fa-download"></i> Download APK
+      </a>
+
+      <div class="info-text">
+        <i class="fas fa-shield-alt"></i> Arquivo seguro · Versão 1.0<br />
+        <span
+          >📱 Após baixar, permita a instalação de fontes desconhecidas nas
+          configurações.</span
+        ><br /><br />
+        <a href="https://github.com/AdrySales/VibeOn" target="_blank"
+          ><i class="fab fa-github"></i> Projeto no GitHub</a
+        >
+      </div>
+    </div>
+
+    <!-- Caso queira atualizar o QR Code dinamicamente via JavaScript (opcional) -->
+    <script>
+      // Garante que o QR Code use o link correto mesmo se houver alteração futura
+      const linkAPK =
+        "https://drive.google.com/file/d/17OLJMj_Xawoti9DJY7ljvshyHy7cNuxf/view?usp=drive_link";
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(linkAPK)}`;
+      document.getElementById("qrCodeImg").src = qrUrl;
+    </script>
+  </body>
+</html>
